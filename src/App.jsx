@@ -15,7 +15,7 @@ function App() {
     <div className="min-h-screen bg-slate-50">
       <header className="border-b bg-white px-6 py-4 flex items-center justify-between">
         <h1 className="text-lg font-semibold text-slate-800">
-          🛡️ SPBU IoT Guardian
+          SPBU IoT Guardian
         </h1>
         <nav className="flex gap-2">
           <NavLink to="/" end className={navItemClass}>
