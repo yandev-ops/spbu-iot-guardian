@@ -1,1 +1,414 @@
-waiting
+{
+  "spbu_locations": [
+    {
+      "spbu_id": "SITE-A01",
+      "name": "Stasiun BBM Area Timur",
+      "region": "Region 1",
+      "lat": -6.2251,
+      "lng": 106.9004
+    },
+    {
+      "spbu_id": "SITE-B02",
+      "name": "Stasiun BBM Area Barat",
+      "region": "Region 2",
+      "lat": -6.2383,
+      "lng": 106.9756
+    },
+    {
+      "spbu_id": "SITE-C03",
+      "name": "Stasiun BBM Area Selatan",
+      "region": "Region 3",
+      "lat": -6.2897,
+      "lng": 106.7178
+    },
+    {
+      "spbu_id": "SITE-D04",
+      "name": "Stasiun BBM Area Tengah",
+      "region": "Region 4",
+      "lat": -6.3728,
+      "lng": 106.8317
+    },
+    {
+      "spbu_id": "SITE-E05",
+      "name": "Stasiun BBM Area Utara",
+      "region": "Region 5",
+      "lat": -6.5971,
+      "lng": 106.806
+    },
+    {
+      "spbu_id": "SITE-F06",
+      "name": "Stasiun BBM Area Luar Kota",
+      "region": "Region 6",
+      "lat": -6.9175,
+      "lng": 107.6191
+    }
+  ],
+  "spare_parts": [
+    {
+      "part_id": "PART-BAT-EDC",
+      "name": "Baterai EDC",
+      "qty_available": 4,
+      "reorder_point": 6,
+      "avg_kerusakan_per_bulan": 3,
+      "lead_time_hari": 7,
+      "safety_stock": 2,
+      "status": "PERLU_REORDER"
+    },
+    {
+      "part_id": "PART-SENS-TANGKI",
+      "name": "Sensor Level Tangki",
+      "qty_available": 9,
+      "reorder_point": 4,
+      "avg_kerusakan_per_bulan": 1,
+      "lead_time_hari": 14,
+      "safety_stock": 2,
+      "status": "STOK_AMAN"
+    },
+    {
+      "part_id": "PART-CCTV-LENS",
+      "name": "Modul Kamera CCTV",
+      "qty_available": 2,
+      "reorder_point": 3,
+      "avg_kerusakan_per_bulan": 2,
+      "lead_time_hari": 10,
+      "safety_stock": 1,
+      "status": "PERLU_REORDER"
+    },
+    {
+      "part_id": "PART-ROUTER-ANT",
+      "name": "Antena Router 4G",
+      "qty_available": 0,
+      "reorder_point": 3,
+      "avg_kerusakan_per_bulan": 2,
+      "lead_time_hari": 5,
+      "safety_stock": 2,
+      "status": "STOCKOUT"
+    },
+    {
+      "part_id": "PART-PRINTER-HEAD",
+      "name": "Print Head Struk",
+      "qty_available": 7,
+      "reorder_point": 5,
+      "avg_kerusakan_per_bulan": 2,
+      "lead_time_hari": 6,
+      "safety_stock": 2,
+      "status": "STOK_AMAN"
+    },
+    {
+      "part_id": "PART-PSU",
+      "name": "Power Supply Unit",
+      "qty_available": 5,
+      "reorder_point": 5,
+      "avg_kerusakan_per_bulan": 1,
+      "lead_time_hari": 12,
+      "safety_stock": 3,
+      "status": "PERLU_REORDER"
+    }
+  ],
+  "devices": [
+    {
+      "device_id": "DEV-EDC-0231",
+      "spbu_id": "SITE-A01",
+      "type": "EDC",
+      "installed_date": "2024-11-10",
+      "component_lifespan_months": 18,
+      "status": "WARNING",
+      "last_heartbeat": "2026-07-30T14:00:00Z",
+      "uptime_pct_7d": 91.2,
+      "required_part_id": "PART-BAT-EDC",
+      "last_maintenance_date": "2025-06-01"
+    },
+    {
+      "device_id": "DEV-EDC-0232",
+      "spbu_id": "SITE-B02",
+      "type": "EDC",
+      "installed_date": "2025-02-15",
+      "component_lifespan_months": 18,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T09:00:00Z",
+      "uptime_pct_7d": 99.8,
+      "required_part_id": "PART-BAT-EDC",
+      "last_maintenance_date": "2026-02-15"
+    },
+    {
+      "device_id": "DEV-EDC-0233",
+      "spbu_id": "SITE-F06",
+      "type": "EDC",
+      "installed_date": "2024-08-01",
+      "component_lifespan_months": 18,
+      "status": "CRITICAL",
+      "last_heartbeat": "2026-07-29T02:00:00Z",
+      "uptime_pct_7d": 63.4,
+      "required_part_id": "PART-BAT-EDC",
+      "last_maintenance_date": "2025-03-01"
+    },
+    {
+      "device_id": "DEV-SENSOR-0117",
+      "spbu_id": "SITE-B02",
+      "type": "Sensor Tangki",
+      "installed_date": "2023-12-01",
+      "component_lifespan_months": 24,
+      "status": "WARNING",
+      "last_heartbeat": "2026-07-31T10:00:00Z",
+      "uptime_pct_7d": 94.0,
+      "required_part_id": "PART-SENS-TANGKI",
+      "last_maintenance_date": "2025-01-10"
+    },
+    {
+      "device_id": "DEV-SENSOR-0118",
+      "spbu_id": "SITE-C03",
+      "type": "Sensor Tangki",
+      "installed_date": "2025-05-01",
+      "component_lifespan_months": 24,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T08:30:00Z",
+      "uptime_pct_7d": 99.1,
+      "required_part_id": "PART-SENS-TANGKI",
+      "last_maintenance_date": "2026-05-01"
+    },
+    {
+      "device_id": "DEV-SENSOR-0119",
+      "spbu_id": "SITE-E05",
+      "type": "Sensor Tangki",
+      "installed_date": "2024-01-20",
+      "component_lifespan_months": 24,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T07:00:00Z",
+      "uptime_pct_7d": 98.5,
+      "required_part_id": "PART-SENS-TANGKI",
+      "last_maintenance_date": "2025-11-20"
+    },
+    {
+      "device_id": "DEV-CCTV-0045",
+      "spbu_id": "SITE-A01",
+      "type": "CCTV",
+      "installed_date": "2023-09-01",
+      "component_lifespan_months": 30,
+      "status": "CRITICAL",
+      "last_heartbeat": "2026-07-28T22:00:00Z",
+      "uptime_pct_7d": 55.0,
+      "required_part_id": "PART-CCTV-LENS",
+      "last_maintenance_date": "2025-04-01"
+    },
+    {
+      "device_id": "DEV-CCTV-0046",
+      "spbu_id": "SITE-D04",
+      "type": "CCTV",
+      "installed_date": "2025-01-15",
+      "component_lifespan_months": 30,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T08:00:00Z",
+      "uptime_pct_7d": 99.9,
+      "required_part_id": "PART-CCTV-LENS",
+      "last_maintenance_date": "2026-01-15"
+    },
+    {
+      "device_id": "DEV-CCTV-0047",
+      "spbu_id": "SITE-F06",
+      "type": "CCTV",
+      "installed_date": "2024-03-01",
+      "component_lifespan_months": 30,
+      "status": "WARNING",
+      "last_heartbeat": "2026-07-31T18:00:00Z",
+      "uptime_pct_7d": 90.3,
+      "required_part_id": "PART-CCTV-LENS",
+      "last_maintenance_date": "2025-09-01"
+    },
+    {
+      "device_id": "DEV-ROUTER-0012",
+      "spbu_id": "SITE-B02",
+      "type": "Router",
+      "installed_date": "2024-06-01",
+      "component_lifespan_months": 24,
+      "status": "DOWN",
+      "last_heartbeat": "2026-07-27T05:00:00Z",
+      "uptime_pct_7d": 0.0,
+      "required_part_id": "PART-ROUTER-ANT",
+      "last_maintenance_date": "2025-06-01"
+    },
+    {
+      "device_id": "DEV-ROUTER-0013",
+      "spbu_id": "SITE-C03",
+      "type": "Router",
+      "installed_date": "2025-03-01",
+      "component_lifespan_months": 24,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T09:15:00Z",
+      "uptime_pct_7d": 99.5,
+      "required_part_id": "PART-ROUTER-ANT",
+      "last_maintenance_date": "2026-03-01"
+    },
+    {
+      "device_id": "DEV-ROUTER-0014",
+      "spbu_id": "SITE-E05",
+      "type": "Router",
+      "installed_date": "2024-10-01",
+      "component_lifespan_months": 24,
+      "status": "WARNING",
+      "last_heartbeat": "2026-07-31T20:00:00Z",
+      "uptime_pct_7d": 92.7,
+      "required_part_id": "PART-ROUTER-ANT",
+      "last_maintenance_date": "2025-10-01"
+    },
+    {
+      "device_id": "DEV-PRINTER-0088",
+      "spbu_id": "SITE-A01",
+      "type": "Printer",
+      "installed_date": "2024-02-01",
+      "component_lifespan_months": 20,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T09:00:00Z",
+      "uptime_pct_7d": 98.0,
+      "required_part_id": "PART-PRINTER-HEAD",
+      "last_maintenance_date": "2025-08-01"
+    },
+    {
+      "device_id": "DEV-PRINTER-0089",
+      "spbu_id": "SITE-D04",
+      "type": "Printer",
+      "installed_date": "2023-11-01",
+      "component_lifespan_months": 20,
+      "status": "WARNING",
+      "last_heartbeat": "2026-07-31T15:00:00Z",
+      "uptime_pct_7d": 89.6,
+      "required_part_id": "PART-PRINTER-HEAD",
+      "last_maintenance_date": "2025-05-01"
+    },
+    {
+      "device_id": "DEV-PRINTER-0090",
+      "spbu_id": "SITE-F06",
+      "type": "Printer",
+      "installed_date": "2025-04-01",
+      "component_lifespan_months": 20,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T08:45:00Z",
+      "uptime_pct_7d": 99.2,
+      "required_part_id": "PART-PRINTER-HEAD",
+      "last_maintenance_date": "2026-04-01"
+    },
+    {
+      "device_id": "DEV-PSU-0055",
+      "spbu_id": "SITE-B02",
+      "type": "PSU",
+      "installed_date": "2023-07-01",
+      "component_lifespan_months": 36,
+      "status": "WARNING",
+      "last_heartbeat": "2026-07-31T11:00:00Z",
+      "uptime_pct_7d": 93.8,
+      "required_part_id": "PART-PSU",
+      "last_maintenance_date": "2025-02-01"
+    },
+    {
+      "device_id": "DEV-PSU-0056",
+      "spbu_id": "SITE-E05",
+      "type": "PSU",
+      "installed_date": "2024-09-01",
+      "component_lifespan_months": 36,
+      "status": "NORMAL",
+      "last_heartbeat": "2026-08-01T08:20:00Z",
+      "uptime_pct_7d": 99.6,
+      "required_part_id": "PART-PSU",
+      "last_maintenance_date": "2026-01-01"
+    },
+    {
+      "device_id": "DEV-PSU-0057",
+      "spbu_id": "SITE-F06",
+      "type": "PSU",
+      "installed_date": "2024-01-01",
+      "component_lifespan_months": 36,
+      "status": "SCHEDULED_MAINTENANCE",
+      "last_heartbeat": "2026-08-01T06:00:00Z",
+      "uptime_pct_7d": 97.0,
+      "required_part_id": "PART-PSU",
+      "last_maintenance_date": "2025-07-01"
+    }
+  ],
+  "maintenance_logs": [
+    {
+      "log_id": "LOG-0088",
+      "device_id": "DEV-EDC-0232",
+      "action": "Ganti baterai",
+      "technician": "Rudi",
+      "date": "2026-02-15",
+      "part_used": "PART-BAT-EDC",
+      "qty_used": 1
+    },
+    {
+      "log_id": "LOG-0089",
+      "device_id": "DEV-CCTV-0046",
+      "action": "Ganti modul kamera",
+      "technician": "Sinta",
+      "date": "2026-01-15",
+      "part_used": "PART-CCTV-LENS",
+      "qty_used": 1
+    },
+    {
+      "log_id": "LOG-0090",
+      "device_id": "DEV-ROUTER-0013",
+      "action": "Ganti antena router",
+      "technician": "Andi",
+      "date": "2026-03-01",
+      "part_used": "PART-ROUTER-ANT",
+      "qty_used": 1
+    },
+    {
+      "log_id": "LOG-0091",
+      "device_id": "DEV-EDC-0231",
+      "action": "Ganti baterai",
+      "technician": "Andi",
+      "date": "2025-06-01",
+      "part_used": "PART-BAT-EDC",
+      "qty_used": 1
+    },
+    {
+      "log_id": "LOG-0092",
+      "device_id": "DEV-PSU-0056",
+      "action": "Servis rutin PSU",
+      "technician": "Rudi",
+      "date": "2026-01-01",
+      "part_used": "PART-PSU",
+      "qty_used": 1
+    }
+  ],
+  "copilot_query_log": [
+    {
+      "query": "perangkat mana yang butuh maintenance minggu ini?",
+      "intent": "status_query",
+      "matched_devices": [
+        "DEV-EDC-0231",
+        "DEV-SENSOR-0117",
+        "DEV-CCTV-0047",
+        "DEV-ROUTER-0014",
+        "DEV-PRINTER-0089",
+        "DEV-PSU-0055"
+      ],
+      "response_summary": "6 perangkat berstatus WARNING minggu ini, tersebar di 5 SPBU. Prioritas tertinggi: EDC di Jakarta Timur (baterai) dan Router di Bogor Baru (antena, stok habis)."
+    },
+    {
+      "query": "perangkat mana yang kritis atau mati?",
+      "intent": "status_query",
+      "matched_devices": [
+        "DEV-EDC-0233",
+        "DEV-CCTV-0045",
+        "DEV-ROUTER-0012"
+      ],
+      "response_summary": "3 perangkat butuh perhatian segera: EDC di Bandung Kota (CRITICAL), CCTV di Jakarta Timur (CRITICAL), dan Router di Bekasi Barat (DOWN sejak 27 Juli)."
+    },
+    {
+      "query": "stok spare part mana yang perlu di-reorder?",
+      "intent": "inventory_query",
+      "matched_devices": [],
+      "response_summary": "4 dari 6 spare part perlu tindakan: Baterai EDC (4/6), Modul CCTV (2/3), Antena Router (STOCKOUT), dan PSU (5/5, mendekati batas). Rekomendasi: prioritaskan reorder Antena Router karena sudah 0 stok dan ada 1 perangkat DOWN."
+    },
+    {
+      "query": "perangkat apa saja yang diprediksi butuh maintenance bulan depan?",
+      "intent": "predictive_query",
+      "matched_devices": [
+        "DEV-SENSOR-0119",
+        "DEV-PRINTER-0088",
+        "DEV-PSU-0057"
+      ],
+      "response_summary": "3 perangkat diproyeksikan mendekati usia komponen maksimal dalam 30 hari ke depan berdasarkan tanggal instalasi dan lifespan komponen."
+    }
+  ]
+}
