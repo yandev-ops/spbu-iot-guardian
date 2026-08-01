@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { refreshAllInventoryStatuses } from "../logic/stateMachine.js";
+import InventoryCard from "../components/InventoryCard.jsx";
 
 function Inventory() {
   const [parts, setParts] = useState([]);
@@ -16,30 +17,28 @@ function Inventory() {
 
   if (loading) return <p className="text-slate-500">Memuat data...</p>;
 
+  const attentionCount = parts.filter(
+    (p) => p.status === "PERLU_REORDER" || p.status === "STOCKOUT"
+  ).length;
+
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Inventory & Prediksi</h2>
-      {/* STUB: tampilan sementara, akan diganti komponen InventoryTable nanti */}
-      <table className="w-full bg-white border rounded-md text-sm">
-        <thead>
-          <tr className="border-b text-left">
-            <th className="p-3">Spare Part</th>
-            <th className="p-3">Qty Tersedia</th>
-            <th className="p-3">Reorder Point</th>
-            <th className="p-3">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {parts.map((p) => (
-            <tr key={p.part_id} className="border-b">
-              <td className="p-3">{p.name}</td>
-              <td className="p-3">{p.qty_available}</td>
-              <td className="p-3">{p.reorder_point}</td>
-              <td className="p-3 font-medium">{p.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      <div className="mb-4">
+        <div className="inline-flex items-center gap-3 px-3 py-2 bg-white rounded-lg shadow-sm text-sm font-medium">
+          <span className="text-slate-600">Bagian perlu perhatian</span>
+          <span className="inline-flex items-center justify-center bg-red-50 text-red-700 rounded-full px-2 py-0.5 text-xs font-semibold">
+            {attentionCount}
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {parts.map((p) => (
+          <InventoryCard key={p.part_id} part={p} />
+        ))}
+      </div>
     </div>
   );
 }
