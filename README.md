@@ -1,3 +1,4 @@
+```markdown
 # SPBU IoT Guardian
 
 AI copilot untuk **preventive maintenance & inventory management** perangkat IT/IoT di SPBU — dibangun untuk **Snowflake CoCo CLI Hackathon 2026**.
@@ -34,6 +35,7 @@ SPBU Pertamina memiliki ribuan perangkat IT & IoT tersebar di banyak lokasi (EDC
 ## Arsitektur
 
 ```
+
 Frontend (React)
    └── Dashboard | Copilot Chat | Inventory View
         │
@@ -48,10 +50,20 @@ Data Layer
    └── mock_data.json (spbu_locations, devices, spare_parts, maintenance_logs)
         │
         ▼
-Snowflake CoCo CLI (disimulasikan sebagai NL → insight generator)
+Snowflake CoCo CLI (pola query divalidasi manual, lihat catatan di bawah)
 ```
 
-Seluruh logic berjalan client-side (tanpa backend server terpisah), sehingga deploy cukup melalui static hosting (Vercel/Netlify).
+Seluruh logic aplikasi yang di-deploy berjalan client-side (tanpa backend server terpisah), sehingga deploy cukup melalui static hosting (Vercel/Netlify).
+
+---
+
+## Status Integrasi Snowflake CoCo
+
+Karena keterbatasan waktu hackathon, aplikasi yang di-deploy saat ini menggunakan `mock_data.json` sebagai data layer, bukan koneksi langsung ke Snowflake.
+
+Namun, pola query natural-language yang dipakai di AI Copilot Chat (mis. *"perangkat mana yang critical atau down, dan spare part apa yang mereka butuhkan?"*) telah **diuji coba secara terpisah lewat sesi nyata di Snowflake CoCo** (Snowsight), terhadap sample data devices & spare parts yang di-load ke tabel Snowflake. Hasil sesi ini didokumentasikan di video demo.
+
+Integrasi langsung CoCo CLI ke aplikasi (menggantikan mock data layer) adalah langkah lanjutan yang direncanakan pasca-hackathon — lihat bagian Roadmap.
 
 ---
 
@@ -59,6 +71,7 @@ Seluruh logic berjalan client-side (tanpa backend server terpisah), sehingga dep
 
 ### Status Perangkat
 ```
+
 NORMAL → WARNING → SCHEDULED_MAINTENANCE → NORMAL
 WARNING → CRITICAL → DOWN → NORMAL
 SCHEDULED_MAINTENANCE → WAITING_PART → SCHEDULED_MAINTENANCE
@@ -70,14 +83,13 @@ STOK_AMAN → PERLU_REORDER → ON_ORDER → STOK_AMAN
 STOK_AMAN → STOCKOUT (jika demand mendesak & qty = 0)
 ```
 
-Detail trigger transisi dan formula reorder point ada di [`/docs/business-logic.md`](docs/business-logic.md).
-
 ---
 
 ## Tech Stack
 
 - **Frontend:** React + Tailwind CSS
-- **Data:** JSON mock data (mensimulasikan hasil query Snowflake CoCo CLI)
+- **Data (saat ini):** JSON mock data, merepresentasikan struktur yang sama dengan tabel Snowflake
+- **Validasi query:** Snowflake CoCo (Snowsight), diuji manual terhadap sample data — lihat video demo
 - **Deployment:** Vercel / Netlify (static hosting)
 
 ---
@@ -97,6 +109,7 @@ spbu-iot-guardian/
 │   └── App.jsx
 ├── README.md
 └── package.json
+
 ```
 
 ---
@@ -104,7 +117,7 @@ spbu-iot-guardian/
 ## Cara Menjalankan Secara Lokal
 
 ```bash
-git clone https://github.com/<username>/spbu-iot-guardian.git
+git clone https://github.com/yandev-ops/spbu-iot-guardian.git
 cd spbu-iot-guardian
 npm install
 npm run dev
@@ -114,12 +127,16 @@ Buka `http://localhost:5173` di browser.
 
 ---
 
-## Catatan Implementasi
+## Roadmap
 
-Untuk kebutuhan hackathon, lapisan Snowflake CoCo CLI **disimulasikan** melalui rule-based intent router yang memetakan pertanyaan pengguna ke query terhadap dataset perangkat & inventory. Arsitektur ini dirancang agar mudah diganti dengan pemanggilan Snowflake CoCo CLI sesungguhnya di tahap produksi, tanpa mengubah struktur data atau alur aplikasi.
+- Integrasi langsung Snowflake CoCo CLI ke aplikasi (menggantikan mock data layer)
+- Integrasi data sensor real-time dari perangkat IoT
+- Notifikasi push ke tim operasional
+- Sistem login multi-user dengan akses berjenjang per region
 
 ---
 
-## Dibuat Oleh Yandev
+## Dibuat Oleh Suyanto
 
 Solo project untuk Snowflake CoCo CLI Hackathon 2026.
+```
