@@ -79,13 +79,13 @@ function Dashboard() {
 
   return (
     <div>
-      {/* ===== HERO HEADER (bleed ke tepi, menutup padding main) ===== */}
+      {/* ===== HERO HEADER ===== */}
       <div className="-mx-6 -mt-6 mb-6 px-6 pt-6 pb-8 bg-gradient-to-br from-blue-600 to-blue-500 rounded-b-3xl text-white">
         <p className="text-sm text-blue-100">Ringkasan Hari Ini</p>
         <h2 className="text-2xl font-bold mb-4">Dashboard Monitoring</h2>
         <div className="flex gap-3">
           <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
-            <p className="text-xs text-blue-100">Total Perangkat</p>
+            <p className="text-xs text-blue-100">Perangkat</p>
             <p className="text-lg font-bold">{totalDevices}</p>
           </div>
           <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
@@ -99,11 +99,14 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* ===== FILTER KATEGORI (grid ikon bulat, seperti "Services") ===== */}
+      {/* ===== FILTER KATEGORI ===== */}
       <div className="flex items-center justify-between mb-3">
         <p className="font-semibold text-slate-800 text-sm">Kategori Perangkat</p>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-2 mb-6 -mx-1 px-1 scrollbar-hide">
+      <div
+        className="flex gap-4 overflow-x-auto pb-2 mb-6 -mx-1 px-1"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
         <button
           onClick={() => setActiveFilter("Semua")}
           className="flex flex-col items-center gap-1.5 shrink-0"
@@ -114,7 +117,7 @@ function Dashboard() {
             }`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
             </svg>
           </span>
           <span className="text-xs text-slate-600 whitespace-nowrap">Semua</span>
@@ -144,7 +147,7 @@ function Dashboard() {
         })}
       </div>
 
-      {/* ===== DAFTAR STASIUN (card per lokasi, seperti "Popular Service Provider") ===== */}
+      {/* ===== DAFTAR STASIUN ===== */}
       <div className="flex items-center justify-between mb-3">
         <p className="font-semibold text-slate-800 text-sm">Stasiun BBM</p>
       </div>
