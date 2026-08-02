@@ -4,13 +4,13 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Copilot from "./pages/Copilot.jsx";
 import Inventory from "./pages/Inventory.jsx";
 import BottomNav from "./components/BottomNav.jsx";
-import Sidebar from "./components/Sidebar.jsx"; // IMPORT BARU
+import Sidebar from "./components/Sidebar.jsx";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 max-w-md mx-auto relative shadow-sm border-x border-slate-200 overflow-hidden">
+    <div className="min-h-screen bg-slate-50 max-w-md mx-auto relative shadow-sm border-x border-slate-200">
       
       {/* ===== SIDEBAR OVERLAY ===== */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
