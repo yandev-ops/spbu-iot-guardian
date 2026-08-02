@@ -20,22 +20,42 @@ function Inventory() {
   const attentionCount = parts.filter(
     (p) => p.status === "PERLU_REORDER" || p.status === "STOCKOUT"
   ).length;
+  const safeCount = parts.length - attentionCount;
+
+  // Item yang butuh perhatian ditampilkan lebih dulu
+  const sortedParts = [...parts].sort((a, b) => {
+    const needsAttention = (s) => s === "PERLU_REORDER" || s === "STOCKOUT";
+    return Number(needsAttention(b.status)) - Number(needsAttention(a.status));
+  });
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Inventory & Prediksi</h2>
-
-      <div className="mb-4">
-        <div className="inline-flex items-center gap-3 px-3 py-2 bg-white rounded-lg shadow-sm text-sm font-medium">
-          <span className="text-slate-600">Bagian perlu perhatian</span>
-          <span className="inline-flex items-center justify-center bg-red-50 text-red-700 rounded-full px-2 py-0.5 text-xs font-semibold">
-            {attentionCount}
-          </span>
+      {/* ===== HERO HEADER ===== */}
+      <div className="-mx-6 -mt-6 mb-6 px-6 pt-6 pb-8 bg-gradient-to-br from-teal-600 to-blue-500 rounded-b-3xl text-white">
+        <p className="text-sm text-teal-100">Ringkasan Stok</p>
+        <h2 className="text-2xl font-bold mb-4">Inventory & Prediksi</h2>
+        <div className="flex gap-3">
+          <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
+            <p className="text-xs text-teal-100">Total Part</p>
+            <p className="text-lg font-bold">{parts.length}</p>
+          </div>
+          <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
+            <p className="text-xs text-teal-100">Aman</p>
+            <p className="text-lg font-bold text-emerald-200">{safeCount}</p>
+          </div>
+          <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
+            <p className="text-xs text-teal-100">Perlu Perhatian</p>
+            <p className="text-lg font-bold text-red-200">{attentionCount}</p>
+          </div>
         </div>
       </div>
 
+      <div className="flex items-center justify-between mb-3">
+        <p className="font-semibold text-slate-800 text-sm">Daftar Spare Part</p>
+      </div>
+
       <div className="space-y-3">
-        {parts.map((p) => (
+        {sortedParts.map((p) => (
           <InventoryCard key={p.part_id} part={p} />
         ))}
       </div>
