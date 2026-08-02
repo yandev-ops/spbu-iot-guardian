@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { routeQuery } from "../logic/intentRouter.js";
+import { refreshAllInventoryStatuses } from "../logic/stateMachine.js";
 import ChatBubble from "../components/ChatBubble.jsx";
 
 function Copilot() {
@@ -10,7 +11,12 @@ function Copilot() {
   useEffect(() => {
     fetch("/mock_data.json")
       .then((res) => res.json())
-      .then((json) => setData({ devices: json.devices, spareParts: json.spare_parts }));
+      .then((json) =>
+        setData({
+          devices: json.devices,
+          spareParts: refreshAllInventoryStatuses(json.spare_parts),
+        })
+      );
   }, []);
 
   const handleAsk = () => {
