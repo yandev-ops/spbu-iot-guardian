@@ -34,11 +34,11 @@ const DEFAULT_ICON = {
   path: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
 };
 
-function DeviceIcon({ type }) {
+function DeviceIcon({ type, size = "w-10 h-10", iconSize = "w-5 h-5" }) {
   const icon = DEVICE_ICON_MAP[type] || DEFAULT_ICON;
   return (
-    <span className={`flex items-center justify-center w-10 h-10 rounded-full shrink-0 ${icon.color}`}>
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <span className={`flex items-center justify-center ${size} rounded-full shrink-0 ${icon.color}`}>
+      <svg xmlns="http://www.w3.org/2000/svg" className={iconSize} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d={icon.path} />
       </svg>
     </span>
@@ -49,6 +49,7 @@ function Dashboard() {
   const [locations, setLocations] = useState([]);
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("Semua");
 
   useEffect(() => {
     fetch("/mock_data.json")
@@ -62,7 +63,15 @@ function Dashboard() {
 
   if (loading) return <p className="text-slate-500">Memuat data...</p>;
 
-  const devicesBySite = devices.reduce((acc, device) => {
+  const deviceTypes = [...new Set(devices.map((d) => d.type))];
+  const totalDevices = devices.length;
+  const criticalCount = devices.filter((d) => d.status === "CRITICAL").length;
+  const downCount = devices.filter((d) => d.status === "DOWN").length;
+
+  const filteredDevices =
+    activeFilter === "Semua" ? devices : devices.filter((d) => d.type === activeFilter);
+
+  const devicesBySite = filteredDevices.reduce((acc, device) => {
     if (!acc[device.spbu_id]) acc[device.spbu_id] = [];
     acc[device.spbu_id].push(device);
     return acc;
@@ -70,34 +79,99 @@ function Dashboard() {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-slate-900 mb-5">Dashboard Monitoring</h2>
-      <div className="space-y-6">
+      {/* ===== HERO HEADER (bleed ke tepi, menutup padding main) ===== */}
+      <div className="-mx-6 -mt-6 mb-6 px-6 pt-6 pb-8 bg-gradient-to-br from-blue-600 to-blue-500 rounded-b-3xl text-white">
+        <p className="text-sm text-blue-100">Ringkasan Hari Ini</p>
+        <h2 className="text-2xl font-bold mb-4">Dashboard Monitoring</h2>
+        <div className="flex gap-3">
+          <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
+            <p className="text-xs text-blue-100">Total Perangkat</p>
+            <p className="text-lg font-bold">{totalDevices}</p>
+          </div>
+          <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
+            <p className="text-xs text-blue-100">Kritis</p>
+            <p className="text-lg font-bold text-orange-200">{criticalCount}</p>
+          </div>
+          <div className="flex-1 bg-white/15 rounded-xl px-3 py-2 backdrop-blur-sm">
+            <p className="text-xs text-blue-100">Mati</p>
+            <p className="text-lg font-bold text-red-200">{downCount}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== FILTER KATEGORI (grid ikon bulat, seperti "Services") ===== */}
+      <div className="flex items-center justify-between mb-3">
+        <p className="font-semibold text-slate-800 text-sm">Kategori Perangkat</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto pb-2 mb-6 -mx-1 px-1 scrollbar-hide">
+        <button
+          onClick={() => setActiveFilter("Semua")}
+          className="flex flex-col items-center gap-1.5 shrink-0"
+        >
+          <span
+            className={`flex items-center justify-center w-14 h-14 rounded-full transition-colors ${
+              activeFilter === "Semua" ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"
+            }`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            </svg>
+          </span>
+          <span className="text-xs text-slate-600 whitespace-nowrap">Semua</span>
+        </button>
+
+        {deviceTypes.map((type) => {
+          const icon = DEVICE_ICON_MAP[type] || DEFAULT_ICON;
+          const isActive = activeFilter === type;
+          return (
+            <button
+              key={type}
+              onClick={() => setActiveFilter(type)}
+              className="flex flex-col items-center gap-1.5 shrink-0"
+            >
+              <span
+                className={`flex items-center justify-center w-14 h-14 rounded-full transition-colors ${
+                  isActive ? "bg-blue-600 text-white" : icon.color
+                }`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d={icon.path} />
+                </svg>
+              </span>
+              <span className="text-xs text-slate-600 whitespace-nowrap">{type}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ===== DAFTAR STASIUN (card per lokasi, seperti "Popular Service Provider") ===== */}
+      <div className="flex items-center justify-between mb-3">
+        <p className="font-semibold text-slate-800 text-sm">Stasiun BBM</p>
+      </div>
+
+      <div className="space-y-4">
         {locations.map((loc) => {
           const siteDevices = devicesBySite[loc.spbu_id] || [];
+          if (siteDevices.length === 0) return null;
+
           return (
             <div
               key={loc.spbu_id}
               className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden"
             >
-              {/* Header lokasi */}
-              <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
+              <div className="h-1.5 bg-gradient-to-r from-blue-500 to-teal-400" />
+              <div className="flex items-center justify-between px-4 pt-3 pb-2">
                 <p className="font-semibold text-slate-800 text-sm">{loc.name}</p>
-                <span className="text-xs text-slate-400 bg-white px-2 py-0.5 rounded-full border border-slate-200">
+                <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
                   {loc.region}
                 </span>
               </div>
 
-              {/* List perangkat, dipisah garis tipis, bukan kotak terpisah */}
               <ul className="divide-y divide-slate-100">
                 {siteDevices.map((d) => (
-                  <li
-                    key={d.device_id}
-                    className="flex items-center gap-3 px-4 py-3"
-                  >
+                  <li key={d.device_id} className="flex items-center gap-3 px-4 py-3">
                     <DeviceIcon type={d.type} />
-                    <span className="flex-1 text-sm font-medium text-slate-700">
-                      {d.type}
-                    </span>
+                    <span className="flex-1 text-sm font-medium text-slate-700">{d.type}</span>
                     <StatusBadge status={d.status} />
                   </li>
                 ))}
