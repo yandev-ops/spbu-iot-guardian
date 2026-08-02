@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { refreshAllDeviceStatuses } from "../logic/stateMachine.js";
 import StatusBadge from "../components/StatusBadge.jsx";
 
-// Ikon per jenis perangkat, dengan warna latar masing-masing
 const DEVICE_ICON_MAP = {
   EDC: {
     color: "bg-blue-100 text-blue-600",
@@ -76,18 +75,24 @@ function Dashboard() {
         {locations.map((loc) => {
           const siteDevices = devicesBySite[loc.spbu_id] || [];
           return (
-            <div key={loc.spbu_id}>
-              <div className="flex items-center justify-between mb-3">
+            <div
+              key={loc.spbu_id}
+              className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden"
+            >
+              {/* Header lokasi */}
+              <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
                 <p className="font-semibold text-slate-800 text-sm">{loc.name}</p>
-                <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                <span className="text-xs text-slate-400 bg-white px-2 py-0.5 rounded-full border border-slate-200">
                   {loc.region}
                 </span>
               </div>
-              <ul className="space-y-2.5">
+
+              {/* List perangkat, dipisah garis tipis, bukan kotak terpisah */}
+              <ul className="divide-y divide-slate-100">
                 {siteDevices.map((d) => (
                   <li
                     key={d.device_id}
-                    className="bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center gap-3 px-4 py-3"
                   >
                     <DeviceIcon type={d.type} />
                     <span className="flex-1 text-sm font-medium text-slate-700">
