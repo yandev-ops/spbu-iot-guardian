@@ -4,7 +4,7 @@ AI copilot untuk **preventive maintenance & inventory management** perangkat IT/
 
 > Membantu tim lapangan memantau kesehatan perangkat (EDC, sensor tangki, CCTV, router, printer, PSU) di ratusan SPBU secara real-time, memprediksi kebutuhan maintenance, dan merekomendasikan aksi reorder spare part — semua lewat percakapan bahasa natural.
 
-**Live Demo:** _[akan diisi setelah deploy]_
+**Live Demo:** https://spbu-iot-guardian.vercel.app/
 **Video Demo:** _[akan diisi]_
 **Slide Presentasi:** _[akan diisi]_
 
